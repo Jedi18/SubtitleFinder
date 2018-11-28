@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import messagebox
 from tkinter import filedialog
 import os
+import subtitle_downloader
 
 root = Tk()
 
@@ -20,7 +21,7 @@ def open_file():
     file_location = fileTextField.get("1.0", 'end-1c')
     filenames = os.listdir(file_location)
 
-    fileListBox.delete(first=0, last=END)
+    fileListBox1.delete(first=0, last=END)
     files_found.clear()
 
     for filename in filenames:
@@ -44,10 +45,11 @@ def about_us():
 
 def populate_listbox():
     for file in files_found:
-        fileListBox.insert(END, file)
+        fileListBox1.insert(END, file)
 
 def download_subtitle():
     print("WORRRK IN PROGRESS")
+    subtitle_downloader.get_download_list(fileListBox1.get(fileListBox1.curselection()))
 
 # ------ Menu -----
 
@@ -78,13 +80,15 @@ frame = Frame(root)
 
 fileTextField = Text(frame, height=2, width=30)
 openButton = Button(frame, text='Open Video File', command=open_file)
-fileListBox = Listbox(frame, selectmode=SINGLE, width=100)
+fileListBox1 = Listbox(frame, selectmode=SINGLE, width=100)
 downloadSelectedButton = Button(frame, text='Download', command=download_subtitle, state=DISABLED)
+fileListBox2 = Listbox(frame, selectmode=SINGLE, width=100)
 
 fileTextField.pack()
 openButton.pack()
-fileListBox.pack()
+fileListBox1.pack()
 downloadSelectedButton.pack()
+fileListBox2.pack()
 frame.pack()
 
 root.mainloop()
